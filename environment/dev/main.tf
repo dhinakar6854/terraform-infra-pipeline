@@ -17,7 +17,7 @@ module "ec2" {
     ami_id = data.aws_ssm_parameter.ubuntu_2404.value
     instance_type = var.instance_type
     instance_count = var.instance_count
-    subnet_id = module.vpc.public_subnet_id
+    subnet_id = module.vpc.subnet_id
     vpc_id = module.vpc.vpc_id
 
 }
