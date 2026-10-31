@@ -2,7 +2,7 @@ resource "aws_security_group" "vpc_sg" {
   name        = "infra-pipe-vpc-sg"
   description = "Allow All inbound traffic and all outbound traffic"
   vpc_id      = var.vpc_id
-  ingress = {
+  ingress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
