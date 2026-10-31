@@ -1,0 +1,51 @@
+resource "aws_vpc" "main_vpc" {
+  cidr_block       = var.vpc_cidr
+  instance_tenancy = "default"
+  enable_dns_hostnames = true
+
+
+  tags = {
+    Name = "${var.env}-vpc"
+  }
+}
+
+
+resource "aws_subnet" "main_subnet" {
+  vpc_id     = aws_vpc.main_vpc.id
+  cidr_block = var.public_subnet_cidr
+  availability_zone       = var.az
+  tags = {
+    Name = "${var.env}-subnet"
+  }
+}
+
+resource "aws_internet_gateway" "main_igw" {
+  vpc_id = aws_vpc.main_vpc.id
+
+  tags = {
+    Name = "${var.env}-igw"
+  }
+}
+
+resource "aws_route_table" "main_route_table" {
+  vpc_id = aws_vpc.main_vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.main_igw.id
+  }
+
+  
+
+  tags = {
+    Name = "${var.env}-route-table"
+  }
+}
+
+
+resource "aws_route_table_association" "main_assoc_rt" {
+  subnet_id      = aws_subnet.main_subnet.id
+  route_table_id = aws_route_table.main_route_table.id
+}
+
+
