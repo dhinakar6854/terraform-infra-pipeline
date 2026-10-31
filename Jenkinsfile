@@ -66,7 +66,7 @@ pipeline {
 
         stage('Terraform Apply') {
             when {
-                branch 'production'
+                branch 'dev'
             }
             steps {
                 dir("${TF_WORKDIR}") {
