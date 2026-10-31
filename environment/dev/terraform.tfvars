@@ -1,0 +1,7 @@
+env = "dev"
+vpc_cidr = "192.168.0.0/16"
+public_subnet_cidr = "192.168.1.0/24"
+az = "us-east-1a"
+instance_type = "t3.micro"
+instance_count = 1
+bucket_name = "infra-pipe-terraform-state-dna"
